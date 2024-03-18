@@ -18,7 +18,7 @@ import requests
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from maintainsecret.lib import (
+from lib import (
     GITHUB_DOT_COM_API_BASE,
     encrypt_secret,
     get_repository_public_key,
