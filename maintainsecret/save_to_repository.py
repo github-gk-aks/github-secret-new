@@ -14,7 +14,7 @@ import logging
 
 import requests
 
-from maintainsecret.lib import (
+from .lib import (
     GITHUB_DOT_COM_API_BASE,
     encrypt_secret,
     get_repository_public_key,
