@@ -37,6 +37,7 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
+        repository: github-gk-aks/github-secret-new
         path: ./called-repo
 
     - name: Set up Python
