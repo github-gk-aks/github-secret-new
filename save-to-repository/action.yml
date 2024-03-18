@@ -23,12 +23,12 @@ inputs:
       repository and for reading the respective public key
     required: true
 runs:
-  using: docker
-  image: ../maintainsecret/Dockerfile
-  args:
-    - "maintainsecret.save_to_repository"
-    - "--destination-github-token=${{ inputs.destination-github-token }}"
-    - "--secret-name=${{ inputs.secret-name }}"
-    - "--secret-value=${{ inputs.secret-value }}"
-    - "--destination-repository-owner=${{ inputs.destination-repository-owner }}"
-    - "--destination-repository-name=${{ inputs.destination-repository-name }}"
+  using: 'composite'
+  steps:
+    - name: Run a python script
+      run: maintainsecret/save-to-repository.py --destination-github-token="${{ inputs.destination-github-token }}" --secret-name="${{ inputs.secret-name }}" --secret-value="${{ inputs.secret-value }}" --destination-repository-owner="${{ inputs.destination-repository-owner }}" --destination-repository-name="${{ inputs.destination-repository-name }}"
+      shell: python
+        
+        
+        
+        
