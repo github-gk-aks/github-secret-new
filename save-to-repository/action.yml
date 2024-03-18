@@ -35,7 +35,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run a python script
-      run: python ${{ github.action_path }}/../../maintainsecret/save-to-repository.py --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
+      run: python "$(dirname "$(dirname "${{ github.action_path }}")")/maintainsecret/save-to-repository.py" --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
       shell: bash
 
         
