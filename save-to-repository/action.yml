@@ -23,35 +23,35 @@ inputs:
       repository and for reading the respective public key
     required: true
 runs:
-  # using: docker
-  # image: ../maintainsecret/Dockerfile
-  # args:
-  #   - "maintainsecret.save_to_repository"
-  #   - "--destination-github-token=${{ inputs.destination-github-token }}"
-  #   - "--secret-name=${{ inputs.secret-name }}"
-  #   - "--secret-value=${{ inputs.secret-value }}"
-  #   - "--destination-repository-owner=${{ inputs.destination-repository-owner }}"
-  #   - "--destination-repository-name=${{ inputs.destination-repository-name }}"
-  using: 'composite'
-  steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        repository: github-gk-aks/github-secret-new
-        path: ./called-repo
+  using: docker
+  image: ../maintainsecret/Dockerfile
+  args:
+    - "maintainsecret.save_to_repository"
+    - "--destination-github-token=${{ inputs.destination-github-token }}"
+    - "--secret-name=${{ inputs.secret-name }}"
+    - "--secret-value=${{ inputs.secret-value }}"
+    - "--destination-repository-owner=${{ inputs.destination-repository-owner }}"
+    - "--destination-repository-name=${{ inputs.destination-repository-name }}"
+  # using: 'composite'
+  # steps:
+  #   - name: Checkout Repository
+  #     uses: actions/checkout@v4
+  #     with:
+  #       repository: github-gk-aks/github-secret-new
+  #       path: ./called-repo
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'  # Specify the desired Python version
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v5
+  #     with:
+  #       python-version: '3.11'  # Specify the desired Python version
 
-    - name: Install Dependencies
-      run: pip install PyNaCl==1.5.0 requests==2.31.0
-      shell: bash
+  #   - name: Install Dependencies
+  #     run: pip install PyNaCl==1.5.0 requests==2.31.0
+  #     shell: bash
 
-    - name: Run a python script
-      run: python ${{ github.workspace }}/called-repo/maintainsecret/save_to_repository.py --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
-      #python "$(dirname "$(dirname "${{ github.action_path }}")")/maintainsecret/save-to-repository.py" --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
-      shell: bash
+  #   - name: Run a python script
+  #     run: python ${{ github.workspace }}/called-repo/maintainsecret/save_to_repository.py --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
+  #     #python "$(dirname "$(dirname "${{ github.action_path }}")")/maintainsecret/save-to-repository.py" --destination-github-token "${{ inputs.destination-github-token }}" --secret-name "${{ inputs.secret-name }}" --secret-value "${{ inputs.secret-value }}" --destination-repository-owner "${{ inputs.destination-repository-owner }}" --destination-repository-name "${{ inputs.destination-repository-name }}"
+  #     shell: bash
 
         
