@@ -1,7 +1,7 @@
 import argparse
 import json
 import logging
-
+from urllib.parse import quote
 import requests
 
 from maintainsecret.lib import (
@@ -38,8 +38,11 @@ def savesecret(
         public_key=environment_public_key["key"], secret_value=secret_value
     )
 
+    # URL-encode the environment name
+    encoded_environment = quote(destination_environment)
+
     response_save_secret = requests.put(
-        url=f"{github_api_base_url}/repositories/{destination_repository_id}/environments/{destination_environment}/secrets/{secret_name}",
+        url=f"{github_api_base_url}/repositories/{destination_repository_id}/environments/{encoded_environment}/secrets/{secret_name}",
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {destination_github_token}",
